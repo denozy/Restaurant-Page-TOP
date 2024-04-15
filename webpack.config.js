@@ -7,11 +7,13 @@ module.exports = {
     output: {
         filename: 'bundle.js',  // Output bundle file name
         path: path.resolve(__dirname, 'dist'),  // Output directory
-        clean: true  // Clean the output directory before each build
+        clean: true // Clean the output directory before each build
     },
+    stats: 'verbose',
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'  // Path to the HTML template file
+            template: './src/index.html', // Path to the HTML template file
+            filename: 'index.html',
         })
     ],
     module: {
@@ -24,8 +26,11 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,  // Apply this rule to image files
-                type: 'asset/resource',  // Use asset modules
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/img/[name][ext]',
+                },
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,  // Apply this rule to font files
